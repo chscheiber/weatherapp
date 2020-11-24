@@ -129,8 +129,14 @@ public class WeatherData implements Serializable {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public WeatherData(int dt, String icon, double temperature, String condition, String pressure,
                        String humidity, String cloudCover, String windSpeed, String windDirection,
-                       String rain, String snow) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EE, MMMM , d, yyyy  h:mm a", Locale.GERMAN);
+                       String rain, String snow, String lang) {
+        SimpleDateFormat sdf;
+        if (lang.equals("de")) {
+            sdf = new SimpleDateFormat("EEEE, MMMM , d, yyyy  h:mm a", Locale.GERMAN);
+        }
+        else {
+            sdf = new SimpleDateFormat("EEEE, MMMM , d, yyyy  h:mm a", Locale.ENGLISH);
+        }
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Instant instant = Instant.ofEpochSecond(dt);
         Date date = Date.from(instant);

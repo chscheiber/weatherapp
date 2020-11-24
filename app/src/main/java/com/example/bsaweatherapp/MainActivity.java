@@ -32,6 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private Random mRandom = new Random();
     private ListAdapter mAdapter;
     private List<WeatherData> weatherData = new LinkedList<>();
+    private String language;
+    private String baseURL = "https://api.openweathermap.org/data/2.5/forecast?q=Wien&units=metric&appid=231b88bacecc85e7d47891a53667356f&lang=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +67,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button generateButton = findViewById(R.id.btn_generate);
-        generateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadWebResult();
-//                List<String> data = generateContent();
-//                mAdapter.swapData(data);
-            }
-        });
+        String tmp = Locale.getDefault().getLanguage();
+        String lang = "en";
+        if(tmp.equals("en") || tmp.equals("de")) {
+            lang = tmp;
+            language = lang;
+        }
+//        Button generateButton = findViewById(R.id.btn_generate);
+//        generateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadWebResult(lang);
+//            }
+//        });
 
-        loadWebResult();
+        //Get language of device; only de and en supported
+
+        loadWebResult(lang);
     }
 
-    private void loadWebResult() {
+    private void loadWebResult(String lang) {
         try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/forecast?q=Wien&units=metric&appid=231b88bacecc85e7d47891a53667356f");
+            String sUrl = baseURL + lang;
+            URL url = new URL(sUrl);
             new LoadWebContentTask().execute(url);
         } catch (MalformedURLException e) {
 //            outputTextView.setText(R.string.url_error);
@@ -128,25 +138,25 @@ public class MainActivity extends AppCompatActivity {
                         int dt = item.getInt("dt");
                         double temp = item.getJSONObject("main").getDouble("temp");
                         String icon = item.getJSONArray("weather").getJSONObject(0).getString("icon");
-                        String condition = item.getJSONArray("weather").getJSONObject(0).getString("main");
+                        String condition = item.getJSONArray("weather").getJSONObject(0).getString("description");
                         String pressure = item.getJSONObject("main").getString("pressure") + "%";
                         String humidity = item.getJSONObject("main").getString("humidity") + "%";
                         String cloudCover = item.getJSONObject("clouds").getString("all") + "%";
                         String windSpeed = item.getJSONObject("wind").getString("speed") + "kph";
                         String windDirection = item.getJSONObject("wind").getString("deg") + "°";
 
-                        String rain = "No rain";
-                        String snow = "No snow";
+                        String rain = getResources().getString(R.string.noRain);
+                        String snow = getResources().getString(R.string.noSnow);
                         try {
                             rain = item.getJSONObject("rain").getString("rain.3h") + "mm";
                             snow = item.getJSONObject("snow").getString("snow.3h") + "mm";
                         }
                         catch (JSONException ex) {
-                            Log.e(LOG_TAG, "JSON Error", ex);
+                            Log.e(LOG_TAG, "JSON Error");
                         }
 
                         WeatherData weatherData = new WeatherData(dt, icon, temp, condition,
-                                pressure, humidity, cloudCover, windSpeed, windDirection, rain, snow);
+                                pressure, humidity, cloudCover, windSpeed, windDirection, rain, snow, language);
                         weatherDataAll.add(weatherData);
                     }
                     return weatherDataAll;
@@ -191,12 +201,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private List<String> generateContent() {
-        List<String> data = new LinkedList<>();
-        for (int i = 0; i < 200; i++)
-            data.add(String.valueOf(mRandom.nextInt(10000)));
-        return data;
     }
 }

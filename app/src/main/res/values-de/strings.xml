@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="next">Weiter</string>
+    <string name="previous">Zurück</string>
+    <string name="temperature">Temperatur: %s</string>
+    <string name="pressure">Luftdruck: %s</string>
+    <string name="humidity">Luftfeuchtigkeit: %s</string>
+    <string name="cloudCover">Bewölkung: %s</string>
+    <string name="windSpeed">Windgeschwindigkeit: %s</string>
+    <string name="windDirection">Windrichtung: %s</string>
+    <string name="rain">Regen: %s</string>
+    <string name="snow">Schneefall: %s</string>
+    <string name="noRain">Kein Regen</string>
+    <string name="noSnow">Kein Schneefall</string>
+    <string name="forecast">Vorhersage für</string>
+</resources>

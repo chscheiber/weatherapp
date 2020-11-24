@@ -18,7 +18,7 @@ public class GetDrawableResource {
             id = icons.get(data.getIcon());
         }
         catch (NullPointerException e){
-            Log.e(LOG_TAG, "Error", e);
+            Log.e(LOG_TAG, "Error");
         }
         return id;
     }
