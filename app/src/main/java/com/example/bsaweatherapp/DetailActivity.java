@@ -30,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView pressureTextView = findViewById(R.id.pressure);
         pressureTextView.setText(String.format(getString(R.string.pressure),wd.getPressure()));
         TextView humidityTextView = findViewById(R.id.humidity);
-        humidityTextView.setText(String.format(getString(R.string.humidity), wd.getPressure()));
+        humidityTextView.setText(String.format(getString(R.string.humidity), wd.getHumidity()));
         TextView ccTextView = findViewById(R.id.cloudCover);
         ccTextView.setText(String.format(getString(R.string.cloudCover), wd.getCloudCover()));
         TextView wsTextView = findViewById(R.id.windSpeed);

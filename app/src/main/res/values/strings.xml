@@ -23,4 +23,5 @@
     <string name="noRain">No Rain</string>
     <string name="noSnow">No Snow</string>
     <string name="forecast">Forecast for</string>
+    <string name="kph">kph</string>
 </resources>

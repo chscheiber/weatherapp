@@ -139,10 +139,11 @@ public class MainActivity extends AppCompatActivity {
                         double temp = item.getJSONObject("main").getDouble("temp");
                         String icon = item.getJSONArray("weather").getJSONObject(0).getString("icon");
                         String condition = item.getJSONArray("weather").getJSONObject(0).getString("description");
-                        String pressure = item.getJSONObject("main").getString("pressure") + "%";
+                        String pressure = item.getJSONObject("main").getString("pressure") + "hPa";
                         String humidity = item.getJSONObject("main").getString("humidity") + "%";
                         String cloudCover = item.getJSONObject("clouds").getString("all") + "%";
-                        String windSpeed = item.getJSONObject("wind").getString("speed") + "kph";
+                        String kph = getResources().getString(R.string.kph);
+                        String windSpeed = item.getJSONObject("wind").getString("speed") + kph;
                         String windDirection = item.getJSONObject("wind").getString("deg") + "°";
 
                         String rain = getResources().getString(R.string.noRain);

@@ -15,4 +15,5 @@
     <string name="noRain">Kein Regen</string>
     <string name="noSnow">Kein Schneefall</string>
     <string name="forecast">Vorhersage für</string>
+    <string name="kph">km/h</string>
 </resources>
